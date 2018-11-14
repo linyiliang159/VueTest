@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import {httpPost} from '../common/HttpBean'
 
   export default {
     data() {
@@ -32,20 +32,19 @@
     },
     methods: {
       login() {
-        let _this = this;
-        axios.post('http://localhost:55824/api/Account/Login', this.form)
-          .then(function (res) {
-            if (res.data.ResultMsg == '登录成功') {
-              _this.$parent.$parent.hideHandle();
-              _this.$parent.$parent.$parent.$refs.headBar.loginFlag=true;
-            }
-            else {
-
-            }
-          })
-          .catch(function (err) {
-            console.log(err);
-          })
+       let _this=this;
+        function callback(data) {
+          if(data.ResultMsg=='登录成功') {
+            _this.$parent.$parent.hideHandle();//dialog隐藏
+            _this.$parent.$parent.$parent.$refs.headBar.loginFlag = true;//headBar修改标志位
+            _this.$parent.$parent.$parent.$refs.headBar.loginBaseData = data.ResultData;//赋值登录信息
+            _this.$router.push('/home');//路由跳转
+          }
+          else {
+            alert(data.ResultMsg);
+          }
+        };
+        httpPost('/api/Account/Login', this.form, callback);
       }
     }
   };

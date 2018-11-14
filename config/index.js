@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api': {
+        target: 'http://localhost:55824',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/': ''
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -31,7 +39,7 @@ module.exports = {
 
     // If you have problems debugging vue-files in devtools,
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
-    cacheBusting:   true,
+    cacheBusting: true,
 
     cssSourceMap: true
   },

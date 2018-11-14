@@ -10,7 +10,7 @@
     <el-col :span="8">
       <el-button type="success" v-on:click="showLogin" v-if="!loginFlag">注册/登录</el-button>
       <div>
-        <span style="font-size: 1.2em;line-height: 45px" v-if="loginFlag">你好，{{}}</span>
+        <span style="font-size: 1.2em;line-height: 45px" v-if="loginFlag">你好，<a href="javascript:;">{{loginBaseData.UserName}}</a></span>
       </div>
     </el-col>
   </el-row>
