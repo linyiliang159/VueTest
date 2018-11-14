@@ -37,7 +37,7 @@
           .then(function (res) {
             if (res.data.ResultMsg == '登录成功') {
               _this.$parent.$parent.hideHandle();
-              _this.$parent.$parent.$parent.$refs.headBar.loginFlag==true;
+              _this.$parent.$parent.$parent.$refs.headBar.loginFlag=true;
             }
             else {
 
