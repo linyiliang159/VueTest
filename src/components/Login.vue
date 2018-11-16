@@ -19,9 +19,9 @@
 </template>
 
 <script>
-  import {httpPost} from '../common/HttpBean'
+import  {onLogin,loginGetter} from "../vuex/actions/AccountAction";
 
-  export default {
+export default {
     data() {
       return {
         form: {
@@ -30,21 +30,20 @@
         }
       }
     },
+  computed:{
+      loginBase:loginGetter
+  },
+  watch:{
+      loginBase:function (data) {
+        this.$parent.$parent.hideHandle();//dialog隐藏
+        this.$parent.$parent.$parent.$refs.headBar.loginFlag = true;//headBar修改标志位
+        this.$parent.$parent.$parent.$refs.headBar.loginBaseData = data.ResultData;//赋值登录信息
+        this.$router.push('/home');//路由跳转
+      }
+  },
     methods: {
       login() {
-       let _this=this;
-        function callback(data) {
-          if(data.ResultMsg=='登录成功') {
-            _this.$parent.$parent.hideHandle();//dialog隐藏
-            _this.$parent.$parent.$parent.$refs.headBar.loginFlag = true;//headBar修改标志位
-            _this.$parent.$parent.$parent.$refs.headBar.loginBaseData = data.ResultData;//赋值登录信息
-            _this.$router.push('/home');//路由跳转
-          }
-          else {
-            alert(data.ResultMsg);
-          }
-        };
-        httpPost('/api/Account/Login', this.form, callback);
+        onLogin(this);
       }
     }
   };

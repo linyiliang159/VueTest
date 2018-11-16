@@ -13,7 +13,7 @@
     name: 'App',
     components: {
       headBar: HeadBar,
-      diaLog:Dialog
+      diaLog:Dialog,
     }
   }
 </script>
